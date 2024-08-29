@@ -1,0 +1,82 @@
+server:
+  port: 8090
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  datasource:
+    driverClassName: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/mystudy
+    username: root
+    password: root
+
+  jpa:
+    hibernate.ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MariaDBDialect  # MariaDB에 맞는 Dialect 추가
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+
+around:
+  hub:
+    short:
+      url:
+        id: ENC(ZJtn8I8tSMNBtlUhuF9l4gPmSt5cEbvEaTDREJq31PQ=)
+        secret: ENC(tWXd8DA35z/XD28NuFNrvNRY4xJTU+v0)
+    portal: naver
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  datasource:
+    url: jdbc:mariadb://localhost:3306/mystudy_local
+    username: root
+    password: root
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  datasource:
+    url: jdbc:mariadb://localhost:3306/mystudy_dev
+    username: root
+    password: root
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url: jdbc:mariadb://localhost:3306/mystudy_prod
+    username: root
+    password: root
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+
+  datasource:
+    url: jdbc:mariadb://localhost:3306/mystudy_test
+    username: root
+    password: root
